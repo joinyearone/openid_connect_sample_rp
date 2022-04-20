@@ -8,7 +8,7 @@ gem 'squeel'
 gem 'rest-client'
 
 group :development, :test do
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.3.5'
 end
 
 group :test do
@@ -16,6 +16,6 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
+  # gem 'pg'
   gem 'rack-ssl', :require => 'rack/ssl'
 end

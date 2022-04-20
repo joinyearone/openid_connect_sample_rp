@@ -2,6 +2,22 @@
 
 A sample OpenID Connect Relying Party ("RP") using the `openid_connect` gem.
 
+## YearOne instructions
+
+To get the app running on your M1 Mac, you'll need a working installation of Ruby 2.3.3. Assuming that you already have `homebrew` and `rbenv` installed, this should be fairly easy to achieve:
+
+    CFLAGS="-Wno-error=implicit-function-declaration" RUBY_CONFIGURE_OPTS='--with-readline-dir=/usr/local/opt/readline/' arch -x86_64 rbenv install 2.3.3
+
+Then, you'll need a working install of sqlite3:
+
+    brew install sqlite3
+
+And, finally, you can install the bundle and get the database set up:
+
+    gem install bundler:1.17.3
+    bundle config build.sqlite3 --with-sqlite3-include=/opt/local/include --with-sqlite3-lib=/opt/local/lib --with-cflags="-Wno-error=implicit-function-declaration"
+    bundle install
+    rake db:create db:migrate db:seed
 
 ## Resources
 
