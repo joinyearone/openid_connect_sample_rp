@@ -29,10 +29,13 @@ class Provider < ActiveRecord::Base
   end
 
   def config
+    Rails.logger.warn("*** RP#Provider calling config.discover! with issuer: #{issuer}")
     @config ||= OpenIDConnect::Discovery::Provider::Config.discover! issuer
   end
 
   def register!(redirect_uri)
+    # binding.pry
+    Rails.logger.warn("*** RP#Provider.register config: #{config.inspect}")
     client = OpenIDConnect::Client::Registrar.new(
       config.registration_endpoint,
       client_name: 'NOV RP',
@@ -127,6 +130,7 @@ class Provider < ActiveRecord::Base
 
   class << self
     def discover!(host)
+      Rails.logger.warn("*** RP Provider.discover! with host: #{host}")
       issuer = OpenIDConnect::Discovery::Provider.discover!(host).issuer
       if provider = find_by_issuer(issuer)
         provider

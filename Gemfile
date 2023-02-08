@@ -9,6 +9,9 @@ gem 'rest-client'
 
 group :development, :test do
   gem 'sqlite3', '~> 1.3.5'
+  gem 'test-unit', '~> 3.0'
+  gem 'pry-byebug'
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
 group :test do
