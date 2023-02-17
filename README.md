@@ -19,6 +19,14 @@ And, finally, you can install the bundle and get the database set up:
     bundle install
     rake db:create db:migrate db:seed
 
+### Start it up on an alternative port
+
+To use the app to test changes to the [platform](https://github.com/joinyearone/yearone) OpenID auth flow, start up the platform (on port 3000 as usual), then start up this app on a different port. Avoid port 3001 because that's used by the platform for attaching debuggers.
+
+    rails s -p 3100
+
+Now you can load up (localhost:3100)[http://localhost:3100]. From there you should see a button labelled "Login with YearOne dev instance". Click it to start your fabulous OpenID adventure!
+
 ## Resources
 
 For this sample:
