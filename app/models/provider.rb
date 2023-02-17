@@ -86,25 +86,24 @@ class Provider < ActiveRecord::Base
       response_type: :code,
       nonce: nonce,
       state: nonce,
-      scope: scopes_supported & [:openid, :email, :profile, :address].collect(&:to_s),
-      # scope: [:openid, :profile, :address, :email, :address, :phone],
-      # request: OpenIDConnect::RequestObject.new(
-      #   id_token: {
-      #     max_age: 10,
-      #     claims: {
-      #       auth_time: nil,
-      #       acr: {
-      #         values: ['0', '1', '2']
-      #       }
-      #     }
-      #   },
-      #   userinfo: {
-      #     claims: {
-      #       name: :required,
-      #       email: :optional
-      #     }
-      #   }
-      # ).to_jwt(client.secret, :HS256)
+      scope: [:openid, :profile, :email],
+      request: OpenIDConnect::RequestObject.new(
+        id_token: {
+          max_age: 10,
+          claims: {
+            auth_time: nil,
+            acr: {
+              values: ['0', '1', '2']
+            }
+          }
+        },
+        userinfo: {
+          claims: {
+            name: :required,
+            email: :optional
+          }
+        }
+      ).to_jwt(client.secret, :HS256)
     )
   end
 
@@ -115,7 +114,7 @@ class Provider < ActiveRecord::Base
   def authenticate(redirect_uri, code, nonce)
     client.redirect_uri = redirect_uri
     client.authorization_code = code
-    access_token = client.access_token! client_auth_method
+    access_token = client.access_token!(client_auth_method)
     _id_token_ = decode_id access_token.id_token
     _id_token_.verify!(
       issuer: issuer,
