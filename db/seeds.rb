@@ -9,3 +9,15 @@ Provider.create! [{
   userinfo_endpoint:      'https://graph.microsoft.com/me',
   jwks_uri:               'https://login.microsoftonline.com/d2f17455-673e-4168-aede-c31b83cf0a3b/discovery/v2.0/keys'
 }]
+
+Provider.create! [{
+  name:                   'YearOne dev instance',
+  issuer:                 'http://localhost:3000',
+  identifier:             'yearonedev',
+  secret:                 '12345secret',
+  scopes_supported:       [:openid, :email],
+  authorization_endpoint: 'http://localhost:3000/open_id/authorizations/new',
+  token_endpoint:         'http://localhost:3000/open_id/tokens',
+  userinfo_endpoint:      'http://localhost:3000/open_id/user_info',
+  jwks_uri:               'http://localhost:3000/open_id/jwks.json'
+}]
